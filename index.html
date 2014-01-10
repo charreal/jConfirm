@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Add powerful, styled confirmation tooltips to any site quickly, and easily!">
+    <meta name="author" content="Versatility Werks (http://flwebsites.biz)">
+
+    <title>jConfirm | jQuery Confirmation Tooltip</title>
+	<link rel='stylesheet' type='text/css' href='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css'>
+	<link rel="stylesheet" type="text/css" href="bootstrap-override.css">
+	<link rel="stylesheet" type="text/css" href="jConfirm-v2.css">
+	
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">GitHub</a></li>
+          <li><a href="http://flwebsites.biz/contact">Contact</a></li>
+        </ul>
+        <h3 class="text-muted">jConfirm - jQuery Plugin</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>jQuery Confirmation Tooltips</h1>
+		<h4>jConfirm v.2</h4>
+        <p class="lead">Want to confirm a delete but hate the default javascript confirm()? Say hello to jConfirm, the solution to all your woes.</p>
+        <p><a href='#' class="btn btn-lg btn-success jConfirm" role="button" itemType='product' itemId='1'>Test It</a> 
+		   <a href='http://github.com' class="btn btn-lg btn-primary jConfirmTwo" role="button">GitHub</a></p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h4>Beautiful</h4>
+          <p><img src='preview.png' alt='Preview'></p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>You can customize:</h4>
+          <p><ul><li>The Design</li><li>Message Text</li><li>Button Labels</li><li>Callback</li><li>Attributes Saved for Callback</li></ul></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>Example Code (actual code from demo above):</h4>
+          <p><pre>
+&lt;!-- Includes the CSS -->
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;jConfirm-v2.css&quot;&gt;
+
+&lt;!-- Create buttons -->
+&lt;a href='#' class=&quot;btn btn-lg btn-success jConfirm&quot; role=&quot;button&quot; itemType='product' itemId='1'&gt;Test It&lt;/a&gt;
+&lt;a href='http://github.com' class=&quot;btn btn-lg btn-primary jConfirmTwo&quot; role=&quot;button&quot;&gt;GitHub&lt;/a&gt;
+
+&lt;!-- Includes the jQuery and the JS -->
+&lt;script src='https://code.jquery.com/jquery-2.0.3.min.js'&gt;&lt;/script&gt;
+&lt;script src='jConfirm-v2.js'&gt;&lt;/script&gt;
+
+&lt;!-- Attach jConfirm to your buttons -->
+&lt;script&gt;
+$('.jConfirm').jConfirm({ 
+message: 'You sure you to delete this?', 
+confirm: 'YUPPERS', 
+cancel: 'NO WAY!', 
+attributes: ['itemType', 'itemId'], 
+callback: function(attrs){ 
+alert&#40;'According to the link you clicked...\r\nType = '+attrs.itemType+' &amp; ID = '+attrs.itemId&#41;;
+} 
+}); 
+$('.jConfirmTwo').jConfirm({ 
+message: &quot;You sure you're ready to use our badass plugin?&quot;, 
+confirm: &quot;Let's GO!&quot;, 
+cancel: &quot;Sorry, I'm a Loser...&quot;, 
+attributes: ['href'], 
+callback: function(attrs){
+window.location.href = attrs.href; 
+} 
+}); 
+&lt;/script&gt;
+          </pre></p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>&copy; Versatility Werks 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+	<script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
+	<script src='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'></script>
+	<script src='jConfirm-v2.js'></script>
+	<script>
+	$('.jConfirm').jConfirm({
+		message: 'You sure you to delete this?',
+		confirm: 'YUPPERS',
+		cancel: 'NO WAY!',
+		attributes: ['itemType', 'itemId'],
+		callback: function(attrs){
+			alert('According to the link you clicked...\r\nType = '+attrs.itemType+' & ID = '+attrs.itemId);
+		}
+	});
+	$('.jConfirmTwo').jConfirm({
+		message: "You sure you're ready to use our badass plugin?",
+		confirm: "Let's GO!",
+		cancel: "Sorry, I'm a Loser...",
+		attributes: ['href'],
+		callback: function(attrs){
+			window.location.href = attrs.href;
+		}
+	});
+	</script>
+  </body>
+</html>
