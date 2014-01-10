@@ -46,7 +46,7 @@
 
         <div class="col-lg-6">
           <h4>Customizable:</h4>
-          <p><ul><li>CSS Design</li><li>Message Text</li><li>Button Labels</li><li>Callback</li><li>Attributes Saved for Callback</li></ul></p>
+          <p><ul><li>CSS Design</li><li>Message Text</li><li>Button Labels</li><li>Callback</li><li>Element clicked returned to Callback</li></ul></p>
         </div>
       </div>
 
@@ -72,8 +72,8 @@ message: 'You sure you to delete this?',
 confirm: 'YUPPERS', 
 cancel: 'NO WAY!', 
 attributes: ['itemType', 'itemId'], 
-callback: function(attrs){ 
-alert&#40;'According to the link you clicked...\r\nType = '+attrs.itemType+' &amp; ID = '+attrs.itemId&#41;;
+callback: function(elem){ 
+alert&#40;'According to the link you clicked...\r\nType = "'+elem.attr('itemType')+'" \r\n ID = "'+elem.attr('itemId')+'"'&#41;;
 } 
 }); 
 $('.jConfirmTwo').jConfirm({ 
@@ -81,8 +81,8 @@ message: &quot;You sure you're ready to use our badass plugin?&quot;,
 confirm: &quot;Let's GO!&quot;, 
 cancel: &quot;Sorry, I'm a Loser...&quot;, 
 attributes: ['href'], 
-callback: function(attrs){
-window.location.href = attrs.href; 
+callback: function(elem){
+window.location.href = elem.attr('href'); 
 } 
 }); 
 &lt;/script&gt;
@@ -118,8 +118,8 @@ window.location.href = attrs.href;
 		confirm: 'YUPPERS',
 		cancel: 'NO WAY!',
 		attributes: ['itemType', 'itemId'],
-		callback: function(attrs){
-			alert('According to the link you clicked...\r\nType = '+attrs.itemType+' & ID = '+attrs.itemId);
+		callback: function(elem){
+			alert('According to the link you clicked...\r\nType = "'+elem.attr('itemType')+'" \r\n ID = "'+elem.attr('itemId')+'"');
 		}
 	});
 	$('.jConfirmTwo').jConfirm({
@@ -127,10 +127,34 @@ window.location.href = attrs.href;
 		confirm: "Let's GO!",
 		cancel: "Sorry, I'm a Loser...",
 		attributes: ['href'],
-		callback: function(attrs){
-			window.location.href = attrs.href;
+		callback: function(elem){
+			window.location.href = elem.attr('href');
 		}
 	});
+	
+	  /* Google Analytics */
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-7474189-3']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
 	</script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52b02c214fce3dc2"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'right',
+      'numPreferredServices' : 5
+    }   
+  });
+</script>
+<!-- AddThis Smart Layers END -->
   </body>
 </html>

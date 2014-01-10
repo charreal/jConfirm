@@ -16,13 +16,13 @@
                 confirm: 'YUPPERS',
                 cancel: 'NO WAY!',
                 attributes: ['itemType', 'itemId'],
-                callback: function(attrs){
-                        $.ajax('delete.php?type='+attrs.itemType+'&id='+attrs.itemId, function(data){
+                callback: function(elem){
+                        $.ajax('delete.php?type='+elem.attr(itemType)+'&id='+elem.attr(itemId), function(data){
                                 if(data.success){
-                                alert("YAY, deleted!");
+                                	alert("YAY, deleted!");
                                 }
                                 else{
-                                alert("NOPE, failed for some silly reason");
+                                	alert("NOPE, failed for some silly reason");
                                 }
                         });
                 }
@@ -43,18 +43,15 @@ $jConfirmDivOpen = false;
   $.fn.jConfirm = function(options) {
 
         /* Set default options */
-          $.fn.jConfirm.defaultOptions = {
+          var options = $.extend({
                   message: 'Are you sure?',
                 confirm: 'Yup',
                 cancel: 'Nope',
                 attributes: ['href'],
-                callback: function(attrs){
-                        console.log(attrs);        
+                callback: function(elem){
+                        console.log(elem);        
                 }
-        };
-        
-        /* Merge defaults with user selected */
-        options = $.extend({}, $.fn.jConfirm.defaultOptions, options);
+       	   }, options);
         
         /* Cache the dom elements we're attaching to */
           $this = $(this);
@@ -63,29 +60,23 @@ $jConfirmDivOpen = false;
         $this.on('click', function(e){
                 e.preventDefault();
                 $jConfirmDivOpen = true;
-                $this = $(this);
+                $jConfirmElem = $(this);
+                $jConfirmCallback = options.callback;
                 var left, top, link;
-                left = $this.offset().left;
-                  top = $this.offset().top + 20;
-                link = $this.attr('href');
-                if(!$.isEmptyObject(options.attributes)){
-                        $jConfirmVals = [];
-                        $.each(options.attributes, function(i,val){
-                           $jConfirmVals[val] = $this.attr(val);
-                        });
-                        $jConfirmCallback = options.callback;
-                        $jConfirmDiv.find('div').html(options.message);
-                        $('.jYup').html(options.confirm);
-                        $('.jNope').html(options.cancel);
-                        $jConfirmDiv.css('left',left).css('top',top).slideDown('fast');
-                }
+                left = $jConfirmElem.offset().left;
+                top = $jConfirmElem.offset().top + 20;
+                link = $jConfirmElem.attr('href');
+                $jConfirmDiv.find('div').html(options.message);
+                $('.jYup').html(options.confirm);
+                $('.jNope').html(options.cancel);
+                $jConfirmDiv.css('left',left).css('top',top).slideDown('fast');
     });
 }
     /* If clicked the confirm button, run the callback/include the original link's source, and hide jConfirm */
     $jConfirmDiv.on('click', '.jYup', function(e){
             e.preventDefault();
             $jConfirmDiv.hide();
-            $jConfirmCallback($jConfirmVals);
+            $jConfirmCallback($jConfirmElem);
     });
 
         /* If clicked the cancel button, hide jConfirm */
