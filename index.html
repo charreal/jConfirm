@@ -65,26 +65,34 @@
 &lt;script src='https://code.jquery.com/jquery-2.0.3.min.js'&gt;&lt;/script&gt;
 &lt;script src='jConfirm-v2.js'&gt;&lt;/script&gt;
 
-&lt;!-- Attach jConfirm to your buttons -->
 &lt;script&gt;
-$('.jConfirm').jConfirm({ 
-message: 'You sure you to delete this?', 
-confirm: 'YUPPERS', 
-cancel: 'NO WAY!', 
-attributes: ['itemType', 'itemId'], 
-callback: function(elem){ 
-alert&#40;'According to the link you clicked...\r\nType = "'+elem.attr('itemType')+'" \r\n ID = "'+elem.attr('itemId')+'"'&#41;;
-} 
-}); 
+
+&lt;!-- Apply to all current + future elements with the class jConfirm (notice openNow) --&gt;
+$('body').on('click', '.jConfirm', function(){
+	$(this).jConfirm({ 
+		message: 'You sure you to delete this?', 
+		confirm: 'YUPPERS', 
+		cancel: 'NO WAY!', 
+		openNow: this,
+		attributes: ['itemType', 'itemId'], 
+		callback: function(elem){ 
+			alert&#40;'According to the link you clicked...\r\nType = "'+elem.attr('itemType')+'" \r\n ID = "'+elem.attr('itemId')+'"'&#41;;
+		} 
+	}); 
+});
+
+&lt;!-- Apply to all current elements with the class jConfirmTwo --&gt;
 $('.jConfirmTwo').jConfirm({ 
-message: &quot;You sure you're ready to use our badass plugin?&quot;, 
-confirm: &quot;Let's GO!&quot;, 
-cancel: &quot;Sorry, I'm a Loser...&quot;, 
-attributes: ['href'], 
-callback: function(elem){
-window.location.href = elem.attr('href'); 
-} 
-}); 
+	message: &quot;You sure you're ready to use our badass plugin?&quot;, 
+	confirm: &quot;Let's GO!&quot;, 
+	cancel: &quot;Sorry, I'm a Loser...&quot;, 
+	openNow: false,
+	attributes: ['href'], 
+	callback: function(elem){
+		window.location.href = elem.attr('href'); 
+	} 
+});
+
 &lt;/script&gt;
           </pre></p>
         </div>
@@ -113,19 +121,23 @@ window.location.href = elem.attr('href');
 	<script src='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'></script>
 	<script src='jConfirm-v2.min.js'></script>
 	<script>
-	$('.jConfirm').jConfirm({
-		message: 'You sure you to delete this?',
-		confirm: 'YUPPERS',
-		cancel: 'NO WAY!',
-		attributes: ['itemType', 'itemId'],
-		callback: function(elem){
+	$('body').on('click', '.jConfirm', function(){
+		$(this).jConfirm({ 
+			message: 'You sure you to delete this?', 
+			confirm: 'YUPPERS', 
+			cancel: 'NO WAY!', 
+			openNow: this,
+			attributes: ['itemType', 'itemId'], 
+			callback: function(elem){ 
 			alert('According to the link you clicked...\r\nType = "'+elem.attr('itemType')+'" \r\n ID = "'+elem.attr('itemId')+'"');
-		}
+			} 
+		}); 
 	});
 	$('.jConfirmTwo').jConfirm({
 		message: "You sure you're ready to use our badass plugin?",
 		confirm: "Let's GO!",
 		cancel: "Sorry, I'm a Loser...",
+		openNow: false,
 		attributes: ['href'],
 		callback: function(elem){
 			window.location.href = elem.attr('href');

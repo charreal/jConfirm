@@ -15,6 +15,7 @@
                 message: 'You sure you to delete this?',
                 confirm: 'YUPPERS',
                 cancel: 'NO WAY!',
+                openNow: false,
                 attributes: ['itemType', 'itemId'],
                 callback: function(elem){
                         $.ajax('delete.php?type='+elem.attr(itemType)+'&id='+elem.attr(itemId), function(data){
@@ -44,24 +45,25 @@ $jConfirmDivOpen = false;
 
         /* Set default options */
           var options = $.extend({
-                  message: 'Are you sure?',
+                message: 'Are you sure?',
                 confirm: 'Yup',
                 cancel: 'Nope',
+                openNow: false,
                 attributes: ['href'],
                 callback: function(elem){
                         console.log(elem);        
                 }
        	   }, options);
         
-        /* Cache the dom elements we're attaching to */
+        /* Cache the dom elements we're attaching to and the callback */
           $this = $(this);
+          $jConfirmCallback = options.callback;
         
         /* Show jConfirm when the element is clicked */
         $this.on('click', function(e){
                 e.preventDefault();
                 $jConfirmDivOpen = true;
                 $jConfirmElem = $(this);
-                $jConfirmCallback = options.callback;
                 var left, top, link;
                 left = $jConfirmElem.offset().left;
                 top = $jConfirmElem.offset().top + 20;
@@ -70,7 +72,21 @@ $jConfirmDivOpen = false;
                 $('.jYup').html(options.confirm);
                 $('.jNope').html(options.cancel);
                 $jConfirmDiv.css('left',left).css('top',top).slideDown('fast');
-    });
+		  });
+		  
+		  /* If show now */
+		  if(options.openNow){
+                $jConfirmDivOpen = true;
+                $jConfirmElem = $(options.openNow);
+                var left, top, link;
+                left = $jConfirmElem.offset().left;
+                top = $jConfirmElem.offset().top + 20;
+                link = $jConfirmElem.attr('href');
+                $jConfirmDiv.find('div').html(options.message);
+                $('.jYup').html(options.confirm);
+                $('.jNope').html(options.cancel);
+                $jConfirmDiv.css('left',left).css('top',top).slideDown('fast');			  
+		  }
 }
     /* If clicked the confirm button, run the callback/include the original link's source, and hide jConfirm */
     $jConfirmDiv.on('click', '.jYup', function(e){
@@ -87,7 +103,7 @@ $jConfirmDivOpen = false;
     });
     
     /* Close jConfirm if clicked outside it (only caveat, it'll close and reopen if you click another one) */
-    $(document).on('mouseup touchend', function(e){
+    $(document).on('mouseup', function(e){
                 if($jConfirmDivOpen){
             if (!$jConfirmDiv.is(e.target)
                 && $jConfirmDiv.has(e.target).length === 0)
