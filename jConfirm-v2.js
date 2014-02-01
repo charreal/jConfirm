@@ -30,10 +30,13 @@
         
 */
 
-/* Add the jConfirm div */
- $('body').append("<div id='jConfirm'><div style='margin-bottom: 5px;'></div><a class='jYup'></a> <a class='jNope'></a></div>");
- /* Cache it */
- $jConfirmDiv = $('#jConfirm');
+/* Add the jConfirm div (if not exists) */
+ if($('#jConfirm').length < 1){
+         $('body').append("<div id='jConfirm'><div style='margin-bottom: 5px;'></div><a class='jYup'></a> <a class='jNope'></a></div>");
+         /* Cache it */
+         $jConfirmDiv = $('#jConfirm');
+ }
+
 /* Indicated whether open or closed to avoid checking clicks if not open */
 $jConfirmDivOpen = false;
 
@@ -46,7 +49,15 @@ $jConfirmDivOpen = false;
                 cancel: 'Nope',
                 openNow: false,
                 callback: function(elem){
-                        console.log(elem);        
+            		var url = elem.attr('href');
+            		if(typeof url !== 'undefined' && url != ''){
+	            		var isJS = url.substr(1, 11);
+	            		if(isJS == 'javascript:'){
+	                		eval(url.replace('javascript:', ''));
+	            		}else{
+	                    	window.location.href = url;
+	                    }
+                    }      
                 }
        	   }, options);
         
