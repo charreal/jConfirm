@@ -30,12 +30,12 @@
         
 */
 
-/* Add the jConfirm div (if not exists) */
- if($('#jConfirm').length < 1){
-         $('body').append("<div id='jConfirm'><div style='margin-bottom: 5px;'></div><a class='jYup'></a> <a class='jNope'></a></div>");
-         /* Cache it */
-         $jConfirmDiv = $('#jConfirm');
- }
+/* Add the jConfirm div */
+$(function(){
+$('body').append("<div id='jConfirm'><div style='margin-bottom: 5px;'></div><a class='jYup'></a> <a class='jNope'></a></div>");
+/* Cache it */
+$jConfirmDiv = $('#jConfirm');
+});
 
 /* Indicated whether open or closed to avoid checking clicks if not open */
 $jConfirmDivOpen = false;
