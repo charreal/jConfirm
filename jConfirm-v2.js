@@ -1,4 +1,15 @@
 /*
+ * jQuery resize event - v1.1 - 3/14/2010
+ * http://benalman.com/projects/jquery-resize-plugin/
+ * 
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ */
+(function($,h,c){var a=$([]),e=$.resize=$.extend($.resize,{}),i,k="setTimeout",j="resize",d=j+"-special-event",b="delay",f="throttleWindow";e[b]=250;e[f]=true;$.event.special[j]={setup:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.add(l);$.data(this,d,{w:l.width(),h:l.height()});if(a.length===1){g()}},teardown:function(){if(!e[f]&&this[k]){return false}var l=$(this);a=a.not(l);l.removeData(d);if(!a.length){clearTimeout(i)}},add:function(l){if(!e[f]&&this[k]){return false}var n;function m(s,o,p){var q=$(this),r=$.data(this,d);r.w=o!==c?o:q.width();r.h=p!==c?p:q.height();n.apply(this,arguments)}if($.isFunction(l)){n=l;return m}else{n=l.handler;l.handler=m}}};function g(){i=h[k](function(){a.each(function(){var n=$(this),m=n.width(),l=n.height(),o=$.data(this,d);if(m!==o.w||l!==o.h){n.trigger(j,[o.w=m,o.h=l])}});g()},e[b])}})(jQuery,this);
+
+
+/*
         jConfirm v.2
         Developed with love by Versatility Werks (http://flwebsites.biz)
         
@@ -34,6 +45,21 @@
 $('body').append("<div id='jConfirm'><div style='margin-bottom: 5px;'></div><a class='jYup'></a> <a class='jNope'></a></div>");
 /* Cache it */
 $jConfirmDiv = $('#jConfirm');
+$jConfirmElem = 'undefined'; //needs to be defined as a global. Will be overwritten when popping up
+
+/* Function to re-position tooltip */
+function positionjAlert(){
+    var left, right, top;
+    left = $jConfirmElem.offset().left;
+    right = ($(window).width() - ($jConfirmElem.offset().left + $jConfirmElem.outerWidth()));
+    top = $jConfirmElem.offset().top + 20;
+    if(left < right){
+        $jConfirmDiv.removeClass('right').css('right','').css('left',left);
+    }else{
+        $jConfirmDiv.addClass('right').css('left','').css('right',right);
+    }
+    $jConfirmDiv.css('top',top);
+}
 
 /* Indicated whether open or closed to avoid checking clicks if not open */
 $jConfirmDivOpen = false;
@@ -68,28 +94,24 @@ $jConfirmDivOpen = false;
                 e.preventDefault();
                 $jConfirmDivOpen = true;
                 $jConfirmElem = $(this);
-                var left, top, link;
-                left = $jConfirmElem.offset().left;
-                top = $jConfirmElem.offset().top + 20;
-                link = $jConfirmElem.attr('href');
+                var link = $jConfirmElem.attr('href');
                 $jConfirmDiv.find('div').html(options.message);
                 $('.jYup').html(options.confirm);
                 $('.jNope').html(options.cancel);
-                $jConfirmDiv.css('left',left).css('top',top).slideDown('fast');
+                positionjAlert();
+                $jConfirmDiv.slideDown('fast');
 		  });
 		  
 		  /* If show now */
 		  if(options.openNow){
                 $jConfirmDivOpen = true;
                 $jConfirmElem = $(options.openNow);
-                var left, top, link;
-                left = $jConfirmElem.offset().left;
-                top = $jConfirmElem.offset().top + 20;
-                link = $jConfirmElem.attr('href');
+                var link = $jConfirmElem.attr('href');
                 $jConfirmDiv.find('div').html(options.message);
                 $('.jYup').html(options.confirm);
                 $('.jNope').html(options.cancel);
-                $jConfirmDiv.css('left',left).css('top',top).slideDown('fast');			  
+				positionjAlert();
+                $jConfirmDiv.css('top',top).slideDown('fast');			  
 		  }
 }
     /* If clicked the confirm button, run the callback/include the original link's source, and hide jConfirm */
@@ -116,3 +138,7 @@ $jConfirmDivOpen = false;
             }
                 }
         });
+    /* Window resize */
+    $('body').resize(function(){
+		positionjAlert();
+	});

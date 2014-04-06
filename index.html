@@ -117,9 +117,10 @@ $('.jConfirmTwo').jConfirm({
 
 	<script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
 	<script src='https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'></script>
-	<script src='jConfirm-v2.min.js'></script>
+	<script src='jConfirm-v2.js'></script>
 	<script>
-	$('body').on('click', '.jConfirm', function(){
+	$('body').on('click', '.jConfirm', function(e){
+		e.preventDefault();
 		$(this).jConfirm({ 
 			message: 'You sure you to delete this?', 
 			confirm: 'YUPPERS', 

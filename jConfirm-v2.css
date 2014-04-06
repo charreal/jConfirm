@@ -15,6 +15,11 @@
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
 }
+#jConfirm.right:before,
+#jConfirm.right::before {
+	right: 10%;
+	left: auto;
+}
 #jConfirm .jYup{
 	background: #5da423; border-color: #518f1f;
 }
