@@ -140,5 +140,7 @@ $jConfirmDivOpen = false;
         });
     /* Window resize */
     $('body').resize(function(){
-		positionjAlert();
+    	if($jConfirmDivOpen){
+			positionjAlert();
+		}
 	});
