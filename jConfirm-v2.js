@@ -48,7 +48,7 @@ $jConfirmDiv = $('#jConfirm');
 $jConfirmElem = 'undefined'; //needs to be defined as a global. Will be overwritten when popping up
 
 /* Function to re-position tooltip */
-function positionjAlert(){
+function positionjConfirm(){
     var left, right, top;
     left = $jConfirmElem.offset().left;
     right = ($(window).width() - ($jConfirmElem.offset().left + $jConfirmElem.outerWidth()));
@@ -98,7 +98,7 @@ $jConfirmDivOpen = false;
                 $jConfirmDiv.find('div').html(options.message);
                 $('.jYup').html(options.confirm);
                 $('.jNope').html(options.cancel);
-                positionjAlert();
+                positionjConfirm();
                 $jConfirmDiv.slideDown('fast');
 		  });
 		  
@@ -110,7 +110,7 @@ $jConfirmDivOpen = false;
                 $jConfirmDiv.find('div').html(options.message);
                 $('.jYup').html(options.confirm);
                 $('.jNope').html(options.cancel);
-				positionjAlert();
+				positionjConfirm();
                 $jConfirmDiv.css('top',top).slideDown('fast');			  
 		  }
 }
@@ -141,6 +141,6 @@ $jConfirmDivOpen = false;
     /* Window resize */
     $('body').resize(function(){
     	if($jConfirmDivOpen){
-			positionjAlert();
+			positionjConfirm();
 		}
 	});
